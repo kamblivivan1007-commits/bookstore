@@ -3,51 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeBooks | Find Your Next Reading</title>
+    <title>Ink & Quill | Flash Sale</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; color: #333; }
-        header { background: #333; color: white; padding: 1rem; text-align: center; }
-        .hero { background: #f4f4f4; padding: 2rem; text-align: center; }
-        .books { display: flex; justify-content: center; padding: 2rem; flex-wrap: wrap; }
-        .book-card { border: 1px solid #ddd; padding: 1rem; margin: 1rem; width: 200px; text-align: center; }
-        footer { background: #333; color: white; text-align: center; padding: 1rem; position: fixed; bottom: 0; width: 100%; }
+        :root { --primary: #2c3e50; --accent: #e67e22; --light: #f4f4f4; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: var(--light); color: var(--primary); }
+        header { background: var(--primary); color: white; padding: 2rem text-align: center; }
+        .hero { text-align: center; padding: 4rem 1rem; background: white; }
+        .promo-badge { background: var(--accent); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold; }
+        .book-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; padding: 2rem; max-width: 1000px; margin: auto; }
+        .book-card { background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s; }
+        .book-card:hover { transform: translateY(-5px); }
+        .btn { background: var(--accent); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 5px; cursor: pointer; text-decoration: none; display: inline-block; margin-top: 1rem; }
+        footer { text-align: center; padding: 2rem; font-size: 0.9rem; color: #666; }
     </style>
-    <!-- TRACKING SCRIPT: Replace UA-XXXXX-Y with your GA4 ID -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-Y"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-XXXXX-Y');
-    </script>
 </head>
 <body>
 
     <header>
-        <h1>CodeBooks</h1>
+        <h1>Ink & Quill Books</h1>
+        <p>Your Next Adventure Awaits</p>
     </header>
 
-    <div class="hero">
-        <h2>Welcome to the Digital Bookstore</h2>
-        <p>Explore our curated collection of technical books.</p>
-    </div>
+    <section class="hero">
+        <span class="promo-badge">WEEKEND SALE: 40% OFF</span>
+        <h2>Limited Time Offer</h2>
+        <p>Dive into our curated collection of spring releases.</p>
+        <a href="#collection" class="btn" id="cta-main">Browse Collection</a>
+    </section>
 
-    <div class="books">
-        <div class="book-card">
-            <h3>HTML Basics</h3>
-            <p>Author: Jane Doe</p>
-            <button>Add to Cart</button>
+    <div class="book-grid" id="collection">
+        <!-- Book 1 -->
+        <div class="book-card" data-category="Fiction">
+            <img src="https://placeholder.com" alt="Book Cover">
+            <h3>The Great Unknown</h3>
+            <p>$12.99 <strike>$24.99</strike></p>
+            <button class="btn buy-btn" data-book="Great Unknown">Add to Cart</button>
         </div>
-        <div class="book-card">
-            <h3>CSS Mastery</h3>
-            <p>Author: John Smith</p>
-            <button>Add to Cart</button>
+
+        <!-- Book 2 -->
+        <div class="book-card" data-category="History">
+            <img src="https://placeholder.com" alt="Book Cover">
+            <h3>Lost Empires</h3>
+            <p>$15.99 <strike>$29.99</strike></p>
+            <button class="btn buy-btn" data-book="Lost Empires">Add to Cart</button>
+        </div>
+
+        <!-- Book 3 -->
+        <div class="book-card" data-category="Mystery">
+            <img src="https://placeholder.com" alt="Book Cover">
+            <h3>Midnight Keys</h3>
+            <p>$10.99 <strike>$19.99</strike></p>
+            <button class="btn buy-btn" data-book="Midnight Keys">Add to Cart</button>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2026 CodeBooks Inc.</p>
+        <p>&copy; 2024 Ink & Quill Booksellers. Built for Readers.</p>
     </footer>
+
+    <!-- BEHAVIOR TRACKING SCRIPT -->
+    <script>
+        // 1. Track Clicks on specific items
+        document.querySelectorAll('.buy-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const bookName = e.target.getAttribute('data-book');
+                console.log(`Behavior Log: User interested in "${bookName}"`);
+                // In a real app, you'd send this to Google Analytics or a custom API
+                alert(`Added ${bookName} to cart! (Tracking event logged)`);
+            });
+        });
+
+        // 2. Track Page Scroll (How far down do they go?)
+        window.addEventListener('scroll', () => {
+            const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            if (scrollPercent > 50) {
+                console.log("Behavior Log: User viewed 50% of the collection.");
+            }
+        }, { once: true });
+
+        // 3. Track Time on Page (Engagement)
+        let startTime = Date.now();
+        window.onbeforeunload = () => {
+            let timeSpent = (Date.now() - startTime) / 1000;
+            console.log(`Behavior Log: User stayed for ${timeSpent} seconds.`);
+        };
+    </script>
 
 </body>
 </html>
